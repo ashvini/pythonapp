@@ -1,0 +1,3 @@
+key:1001,nodeIp:54.68.24.105,type:lntun,remote_ip:52.28.134.107,tx_port:2,protocol:ip,node_destinationIp:192.168.1.0/24
+key:1001,nodeIp:54.68.24.105,protocol:ip,node_destinationIp:172.31.96.10
+key:1002,nodeIp:54.68.24.105,type:lntun,remote_ip:50.18.223.31,tx_port:1,protocol:ip,node_destinationIp:172.31.0.100
