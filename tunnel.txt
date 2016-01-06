@@ -1,6 +1,5 @@
 key:1001,nodeIp:54.68.24.105,type:service,protocol:ip,node_destinationIp:172.31.0.100,nw_proto:50,set_tunnel64:0
 key:1001,nodeIp:54.68.24.105,protocol:udp,tp_src:5060,set_tunnel64:18446744069414584320
-key:1002,nodeIp:54.68.24.105,type:lntun,remote_ip:52.8.222.190,tx_port:2,protocol:icmp,node_destinationIp:192.168.1.0/24
 key:1002,nodeIp:54.68.24.105,protocol:ip,node_destinationIp:192.168.1.0/24,nw_proto:50,table:4
 key:1002,nodeIp:54.68.24.105,protocol:ip,node_destinationIp:172.31.96.10
 key:1003,nodeIp:54.68.24.105,protocol:icmp,inport:2,node_destinationIp:172.31.0.100,output:1
