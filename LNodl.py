@@ -3,7 +3,6 @@ import json
 import yaml #used for str to dict conversion
 import random
 import flowbodycreater
-#import ast {for str to dict converion not supported after python 2.6v}
 import time
 import sys
 from common.utils import *
@@ -19,7 +18,6 @@ def get_nodeip_id_dict():
     '''
     url = "http://"+odlip+":8181/restconf/operational/opendaylight-inventory:nodes/"
     resp,content = rest_call(url,'GET')
-    #nodeip_id ={}
     for i in content:
 	for j in content[i]:
 	    for k in content[i][j]:
@@ -124,8 +122,6 @@ def fileread(lnconfig_file):
 
         elif groupid!=None:
             bucketlist = []
-            #import pdb;pdb.set_trace()
-            
             for bucket in bucketlist_file:
                 tunnel = Tunnel(nodeip,"cpt"+bucket)
                 portid = tunnel.get_OFPortID()
