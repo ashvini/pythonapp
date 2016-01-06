@@ -10,9 +10,8 @@ class Tunnel:
         self.portname = portname
     def connect_ovsdb(self):
         '''
-        This method builds an OVSDB Channel from ODL to the CPE/CE on the listener port 6640
+        This method builds an OVSDB Channel from ODL to the OVS node on the listener port 6640
         '''
-        #print 'i am running ovsdb()******************'
         url = "http://"+Tunnel.odlip+":8080/controller/nb/v2/connectionmanager/node/"+self.nodeip+"/address/"+self.nodeip+"/port/6640"
         resp = rest_call(url,'PUT')
         #print resp
@@ -23,9 +22,8 @@ class Tunnel:
 
     def create_port(self):
         '''
-        This method creates a Tunnel port of type either 'ipsec' or 'lntun' on the CPE/CE
+        This method creates a Tunnel port of type either 'ipsec' or 'gre' on the OVS node
         '''
-        #print 'i am creating tunnel\\\\\\\\\\\\\\\"'
         url = "http://"+Tunnel.odlip+":8080/controller/nb/v2/networkconfig/bridgedomain/port/OVS/"+self.nodeip +"/br0/"+self.portname
         resp = rest_call(url,'POST',{})
         #print resp
@@ -38,11 +36,8 @@ class Tunnel:
         '''
         This method will retrive interfaceuuid for the created port and used for configuring the created ports on CPE/CE
         '''
-        #print 'i am getting interfaceuuid...:::::'
         url = "http://"+Tunnel.odlip+":8080/ovsdb/nb/v2/node/OVS/"+self.nodeip +"/tables/interface/rows"
         resp,content = rest_call(url,'GET')
-        #print resp
-        #print content
         interfaceUUID = {}
         for i in content:
             for j in content[i]:
@@ -60,12 +55,10 @@ class Tunnel:
 
     def get_OFPortID(self):
         '''
-        This method will retrieve the OF PortID of the ports created on the CPE/CE
+        This method will retrieve the OF PortID of the ports created on the OVS node
         '''
         url = "http://"+Tunnel.odlip+":8080/ovsdb/nb/v2/node/OVS/"+self.nodeip +"/tables/interface/rows"
         resp,content = rest_call(url,'GET')
-        #print resp
-        #print content
         OFportID = {}
         try:
             for i in content:
@@ -90,7 +83,6 @@ class Tunnel:
         '''
             This method will configure the with the interfaceuuid retreived
         '''
-        #print 'i am configuring tunnel..'
         url = "http://"+Tunnel.odlip+":8080/ovsdb/nb/v2/node/OVS/"+self.nodeip +"/tables/interface/rows/"+interfaceuuid
         option = []
         for pairs in portinfolist:
@@ -109,7 +101,6 @@ class Tunnel:
         options = ["map",option]
         requestBody = {"row":{"Interface":{"type":porttype,"options" : options}}}
         resp = rest_call(url,'PUT',requestBody)
-        #print resp
         if resp:
             print "Port is created with specified options on Node: %s" % (self.nodeip)
         else:
